@@ -106,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'India/up'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -129,5 +129,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #         'LOCATION': 'blog_cache', 
 #     }
 # }
-
 
