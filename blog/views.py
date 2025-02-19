@@ -8,7 +8,6 @@ from django.contrib.auth.models import Group
 from django.core.cache import cache
 from .models import Userinfo
 
-from django.utils import timezone 
 # Home. . 
 def home(request):
     posts = Post.objects.all()
@@ -73,15 +72,15 @@ def user_login(request):
                     login(request, user)
                     messages.success(request, 'Logged in Successfully!')
 
-                    userinfo, created = Userinfo.objects.get_or_create(user = user)
-                    if created:
-                        userinfo.clientname = user.get_full_name()
-                        userinfo.clientip = request.META.get('REMOTE_ADDR')
-                        userinfo.clientcount = 1
-                        userinfo.clienttime = timezone.now()
-                    else:
-                        userinfo.clientcount += 1
-                    userinfo.save()
+                    # userinfo, created = Userinfo.objects.get_or_create(user = user)
+                    # if created:
+                    #     userinfo.clientname = user.get_full_name()
+                    #     userinfo.clientip = request.META.get('REMOTE_ADDR')
+                    #     userinfo.clientcount = 1
+                    #     userinfo.clienttime = timezone.now()
+                    # else:
+                    #     userinfo.clientcount += 1
+                    # userinfo.save()
                     return HttpResponseRedirect('/dashboard/') 
         
         else:
