@@ -38,6 +38,10 @@ def dashboard(request):
         return render(request , 'dashboard.html' , {'posts' : posts, 'full_name' : full_name, 'groups':gps, 'ip' : ip , 'ct' : ct})
     else:
         return HttpResponseRedirect('/user_login/')
+
+
+
+
 # Logout
 def user_logout(request):
     logout(request)
@@ -71,16 +75,6 @@ def user_login(request):
                 if user is not None:
                     login(request, user)
                     messages.success(request, 'Logged in Successfully!')
-
-                    # userinfo, created = Userinfo.objects.get_or_create(user = user)
-                    # if created:
-                    #     userinfo.clientname = user.get_full_name()
-                    #     userinfo.clientip = request.META.get('REMOTE_ADDR')
-                    #     userinfo.clientcount = 1
-                    #     userinfo.clienttime = timezone.now()
-                    # else:
-                    #     userinfo.clientcount += 1
-                    # userinfo.save()
                     return HttpResponseRedirect('/dashboard/') 
         
         else:
@@ -133,3 +127,16 @@ def delete_post(request , id):
             return HttpResponseRedirect('/dashboard/')
     else:
         return HttpResponseRedirect('/user_login/')
+    
+
+
+from .middleware import url_tracking_data
+from django.http import JsonResponse
+
+def get_data(request):
+    # Assuming you're trying to fetch the URL tracking data for the logged-in user
+    if request.user.is_authenticated:
+        userinfo = Userinfo.objects.get(user=request.user)
+        return JsonResponse(userinfo.url_tracking_data)
+    else:
+        return JsonResponse({'error': 'User is not authenticated'}, status=401)

@@ -14,4 +14,7 @@ class Userinfo(models.Model):
     clientcount = models.IntegerField(default = 1)
     clienttime = models.DateTimeField(auto_now_add=True)
     clienturl = models.CharField(max_length=200)
+    clientview = models.CharField(max_length=190)
+    url_tracking_data = models.JSONField(default=dict)
+    hit_count = models.IntegerField()
 
